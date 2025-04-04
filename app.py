@@ -153,5 +153,6 @@ def download_resume():
     directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'pdf')
     return send_from_directory(directory, 'Resume - Nontapat Eiedtong.pdf', as_attachment=True)
 
+# ตรวจสอบว่ามีโค้ดนี้อยู่ที่ส่วนท้ายของไฟล์
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False, host='0.0.0.0')
