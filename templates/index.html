@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.name }} | {{ profile.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo:wght@300;400;500;600;700&display=swap">
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader">
+        <div class="loader-content">
+            <div class="loader-backdrop"></div>
+            <div class="loader-logo">
+                <div class="loader-logo-inner">&lt;N/&gt;</div>
+            </div>
+            <div class="loader-status">
+                <div class="loader-text-container">
+                    <div class="loader-text">
+                        <div>Initializing System...</div>
+                        <div>Loading Assets...</div>
+                        <div>Connecting Modules...</div>
+                        <div>Calibrating Interface...</div>
+                        <div>Ready To Launch</div>
+                    </div>
+                </div>
+                <div class="loader-progress-container">
+                    <div class="loader-progress"></div>
+                </div>
+            </div>
+            <div class="loader-data">
+                <div class="loader-data-content">
+                    Scanning system... Initializing neural network... Loading AI modules... Establishing secure connection... Rendering interface components... Optimizing performance metrics... Activating portfolio view...
+                </div>
+            </div>
+        </div>
+        <div class="loader-hud"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="language-switch">
+                <button id="lang-th" class="active">TH</button>
+                <button id="lang-en">EN</button>
+            </div>
+            <div class="header-content">
+                <h1 class="name th">{{ profile.name }}</h1>
+                <h1 class="name en">{{ profile.name_en }}</h1>
+                <h2 class="title">{{ profile.title }}</h2>
+                <div class="contact-info">
+                    <p class="th">{{ profile.contact.address }}</p>
+                    <p class="en">{{ profile.contact.address_en }}</p>
+                    <p><a href="mailto:{{ profile.contact.email }}">{{ profile.contact.email }}</a> | {{ profile.contact.phone }}</p>
+                </div>
+            </div>
+        </header>
+        
+        <nav class="navigation">
+            <button class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#profile" class="active" data-section="profile"><i class="fas fa-user"></i> <span class="nav-text">ประวัติส่วนตัว<span class="en">Profile</span></span></a></li>
+                <li class="nav-item"><a href="#experience" data-section="experience"><i class="fas fa-briefcase"></i> <span class="nav-text">ประสบการณ์<span class="en">Experience</span></span></a></li>
+                <li class="nav-item"><a href="#education" data-section="education"><i class="fas fa-graduation-cap"></i> <span class="nav-text">การศึกษา<span class="en">Education</span></span></a></li>
+                <li class="nav-item"><a href="#skills" data-section="skills"><i class="fas fa-code"></i> <span class="nav-text">ทักษะ<span class="en">Skills</span></span></a></li>
+                <li class="nav-item"><a href="#contact" data-section="contact"><i class="fas fa-envelope"></i> <span class="nav-text">ติดต่อ<span class="en">Contact</span></span></a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            <section id="profile" class="active">
+                <h2 class="section-title th" data-number="1">ประวัติส่วนตัว</h2>
+                <h2 class="section-title en" data-number="1">Professional Profile</h2>
+                <div class="section-content">
+                    <p class="th">{{ profile.summary }}</p>
+                    <p class="en">{{ profile.summary_en }}</p>
+                    
+                    <!-- Terminal-like input -->
+                    <div class="terminal">
+                        <input type="text" class="terminal-input" placeholder="Type 'help' for available commands..." autocomplete="off">
+                        <div class="terminal-response"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="experience">
+                <h2 class="section-title th" data-number="2">ประสบการณ์การทำงาน</h2>
+                <h2 class="section-title en" data-number="2">Professional Experience</h2>
+                <div class="section-content">
+                    <div class="timeline">
+                        {% for exp in experiences %}
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-header">
+                                    <h3>{{ exp.position }} <span>({{ exp.type }})</span></h3>
+                                    <p class="duration th">{{ exp.duration }}</p>
+                                    <p class="duration en">{{ exp.duration_en }}</p>
+                                </div>
+                                <ul class="responsibilities th">
+                                    {% for responsibility in exp.responsibilities %}
+                                    <li>{{ responsibility }}</li>
+                                    {% endfor %}
+                                </ul>
+                                <ul class="responsibilities en">
+                                    {% for responsibility in exp.responsibilities_en %}
+                                    <li>{{ responsibility }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            
+            <section id="education">
+                <h2 class="section-title th" data-number="3">การศึกษา</h2>
+                <h2 class="section-title en" data-number="3">Education</h2>
+                <div class="section-content">
+                    <div class="education-card">
+                        <div class="education-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="education-details">
+                            <h3 class="th hologram">{{ education.degree }}</h3>
+                            <h3 class="en hologram">{{ education.degree_en }}</h3>
+                            <p class="university th">{{ education.university }}</p>
+                            <p class="university en">{{ education.university_en }}</p>
+                            <p class="faculty th">{{ education.faculty }} | {{ education.gpa }}</p>
+                            <p class="faculty en">{{ education.faculty_en }} | {{ education.gpa }}</p>
+                            <p class="duration th">{{ education.duration }}</p>
+                            <p class="duration en">{{ education.duration_en }}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="skills">
+                <h2 class="section-title th" data-number="4">ทักษะด้านโปรแกรมเมอร์</h2>
+                <h2 class="section-title en" data-number="4">Programming Skills</h2>
+                <div class="section-content">
+                    <div class="skills-container">
+                        <div class="skills-group">
+                            <h3 class="th">ภาษาโปรแกรมมิ่ง</h3>
+                            <h3 class="en">Programming Languages</h3>
+                            <div class="skill-tags">
+                                {% for lang in skills.programming %}
+                                <span class="skill-tag">{{ lang }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <div class="skills-group">
+                            <h3 class="th">การพัฒนาเว็บและซอฟต์แวร์</h3>
+                            <h3 class="en">Web & Software Development</h3>
+                            <ul>
+                                {% for item in skills.development %}
+                                <li>{{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        
+                        <div class="skills-group">
+                            <h3 class="th">ความปลอดภัยไซเบอร์</h3>
+                            <h3 class="en">Cybersecurity</h3>
+                            <ul>
+                                {% for item in skills.cybersecurity %}
+                                <li>{{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        
+                        <div class="skills-group">
+                            <h3 class="th">เครื่องมือและแพลตฟอร์ม</h3>
+                            <h3 class="en">Tools & Platforms</h3>
+                            <ul>
+                                {% for item in skills.tools %}
+                                <li>{{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="contact">
+                <h2 class="section-title th" data-number="5">ติดต่อ</h2>
+                <h2 class="section-title en" data-number="5">Contact</h2>
+                <div class="section-content">
+                    <div class="contact-card">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h3>Email</h3>
+                                <p><a href="mailto:{{ profile.contact.email }}">{{ profile.contact.email }}</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h3 class="th">โทรศัพท์</h3>
+                                <h3 class="en">Phone</h3>
+                                <p>{{ profile.contact.phone }}</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3 class="th">ที่อยู่</h3>
+                                <h3 class="en">Address</h3>
+                                <p class="th">{{ profile.contact.address }}</p>
+                                <p class="en">{{ profile.contact.address_en }}</p>
+                            </div>
+                        </div>
+                        <div class="contact-social">
+                            <a href="https://github.com/Mubmib1305" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://www.facebook.com/nontapat.eiedtong" target="_blank" class="social-link" title="Facebook"><i class="fab fa-facebook"></i></a>
+                            <a href="https://www.instagram.com/_mubmib_/" target="_blank" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link" title="Line ID: Nontapat_46"><i class="fab fa-line"></i></a>
+                        </div>
+                        
+                        <!-- ปุ่มดาวน์โหลดแบบใหม่ - อยู่ตรงกลาง -->
+                        <div class="download-container">
+                            <a href="{{ url_for('download_resume') }}" class="cyber-button">
+                                <div class="text">
+                                    <span class="th">ดาวน์โหลดเรซูเม่</span>
+                                    <span class="en">Download Resume</span>
+                                </div>
+                                <span class="download-icon"><i class="fas fa-download"></i></span>
+                                <div class="cyber-button-glitch"></div>
+                                <svg style="display: none;">
+                                    <filter id="cyber-glitch-filter">
+                                        <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" seed="0" />
+                                        <feDisplacementMap scale="8" in="SourceGraphic" />
+                                    </filter>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; {{ profile.name_en }} {{ current_year }}</p>
+            <p class="th">พัฒนาด้วย Flask, HTML, CSS และ JavaScript</p>
+            <p class="en">Developed with Flask, HTML, CSS and JavaScript</p>
+            <p><span class="glitch-effect" data-text="Cybersecurity Specialist">Cybersecurity Specialist</span></p>
+        </footer>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
